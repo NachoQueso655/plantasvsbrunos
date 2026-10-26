@@ -2275,15 +2275,4 @@ if(COARSE){let dg=null;
  {const a=openSettings;openSettings=function(){const r=a.apply(this,arguments);try{const sm=[...resC.querySelectorAll('small')].find(x=>/lagea/.test(x.textContent));if(sm&&!resC.querySelector('#stDrag')){const d=document.createElement('div');d.innerHTML="<p><b>👆 Arrastrar para plantar</b> <button id='stDrag'></button></p><small>Arrastrá la semilla hasta la casilla para plantarla (tocar y tocar sigue funcionando).</small>";sm.after(d);const bt=d.querySelector('#stDrag'),up=()=>{bt.textContent=window.DRAG?'Activado':'Desactivado'};up();bt.onclick=()=>{window.DRAG=!window.DRAG;try{localStorage.setItem('pcb_drag',window.DRAG?'1':'0')}catch(e){}up()}}}catch(e){}return r}}}
 })();
 
-/* ---- copia de seguridad (código de progreso) ---- */
-(function(){
-const enc=()=>{const o={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.indexOf('pcb')===0)o[k]=localStorage.getItem(k)}return 'PCB1:'+btoa(unescape(encodeURIComponent(JSON.stringify(o))))};
-const dec=t=>{t=(t||'').trim();if(t.indexOf('PCB1:')!==0)throw 0;const o=JSON.parse(decodeURIComponent(escape(atob(t.slice(5)))));if(!o||typeof o!=='object')throw 0;return o};
-{const a=openSettings;openSettings=function(){const r=a.apply(this,arguments);try{if(!resC.querySelector('#bkT')){const sm=[...resC.querySelectorAll('small')].find(x=>/lagea/.test(x.textContent));if(sm){const d=document.createElement('div');d.innerHTML="<p><b>💾 Copia de seguridad</b></p><textarea id='bkT' rows='3' style='width:100%;box-sizing:border-box;font-size:11px' placeholder='Tu código aparece acá, o pegá uno y tocá Cargar'></textarea><div><button id='bkC'>📋 Generar y copiar</button> <button id='bkL'>📥 Cargar código</button></div><small>Sirve para pasar tu progreso a otro dispositivo. Cargar un código reemplaza tu progreso actual.</small>";
- let last=sm;const q=resC.querySelector('#stDrag'),v=resC.querySelector('#stSaver');(q||v||sm).closest('div')&&0;sm.parentNode.appendChild(d);
- const T=d.querySelector('#bkT'),C=d.querySelector('#bkC'),L=d.querySelector('#bkL');let armed=0;
- C.onclick=async()=>{const c=enc();T.value=c;T.select();let ok=false;try{await navigator.clipboard.writeText(c);ok=true}catch(e){try{ok=document.execCommand('copy')}catch(e2){}}toast(ok?'📋 Código copiado':'Copialo del cuadro de texto')};
- L.onclick=()=>{let o;try{o=dec(T.value)}catch(e){toast('Código inválido');return}if(!armed){armed=1;L.textContent='⚠️ Tocá de nuevo para reemplazar';setTimeout(()=>{armed=0;L.textContent='📥 Cargar código'},5000);return}
-  for(let i=localStorage.length-1;i>=0;i--){const k=localStorage.key(i);if(k&&k.indexOf('pcb')===0)localStorage.removeItem(k)}Object.keys(o).forEach(k=>{if(k.indexOf('pcb')===0)localStorage.setItem(k,o[k])});toast('✅ Progreso cargado');setTimeout(()=>location.reload(),700)}}}}catch(e){console.error(e)}return r}}
-})();
 </script></body></html>
