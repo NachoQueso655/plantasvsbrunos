@@ -2157,7 +2157,7 @@ const st=document.createElement('style');st.textContent=`
 {const f=fitBoard;fitBoard=function(){if(!PH())return f();if(!lab.classList.contains('play'))return;const wr=WR.getBoundingClientRect(),LW=106,k=Math.min((innerWidth-LW)/(W()+80),wr.height/(R*C));board.style.transform=`scale(${k})`;board.style.left=(LW+((innerWidth-LW)-(W()+60)*k)/2+60*k-wr.left)+'px';board.style.top=((wr.height-R*C*k)/2)+'px'}}
 {const bt=beltTick;beltTick=function(dt){if(!PH())return bt(dt);const L=curLv,H=beltEl.clientHeight;L.bt-=dt;const cap=Math.max(3,Math.floor((H-6)/56));if(L.bt<=0&&L.bc.length<cap){L.bt=2.6;beltAdd(L.pool[Math.floor(Math.random()*L.pool.length)])}L.bc.forEach((c,i)=>{const ty=6+i*56;c.y=Math.max(ty,(c.y==null?H+20:c.y)-130*dt);c.el.style.transform=`translateY(${c.y}px)`})}}
 {const a=launch;launch=function(){const r=a.apply(this,arguments);lab.classList.toggle('hasbelt',!!(curLv&&curLv.belt));try{fitBoard()}catch(e){}if(curMus){try{curMus.currentTime=0}catch(e){}}rdy();return r}}
-{const a=launchMini;launchMini=function(){const r=a.apply(this,arguments);rdy();return r}}
+{const a=launchMini;launchMini=function(){const r=a.apply(this,arguments);lab.classList.toggle('hasbelt',lab.classList.contains('belt')||!!(curLv&&curLv.belt));try{fitBoard()}catch(e){}rdy();return r}}
 {const a=launchInf;launchInf=function(){const r=a.apply(this,arguments);if(curMus){try{curMus.currentTime=0}catch(e){}}rdy();return r}}
 function rdy(){const L=curLv;if(L&&!L.hold){L.hold=true;window.readyGo(L,()=>{if(curLv===L)L.hold=false})}}
 window.readyGo=function(L,cb){const el=document.createElement('div');el.id='rsp';document.body.appendChild(el);const seq=[['¿PREPARADOS?','#fde047',.8],['¿LISTOS?','#fb923c',1],['¡PLANTA!','#4ade80',1.3]];let n=0;
